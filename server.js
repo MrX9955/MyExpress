@@ -6,20 +6,16 @@ const PORT = 3000;
 
 app.use(express.json());
 
-// In-memory data store (array)
 let books = [];
 
-// 👇 Add this route
 app.get('/', (req, res) => {
-  res.send('Welcome to the Book API! Use /books to view or add books.');
+  res.send('Welcome to the Book Library.');
 });
 
-// GET /books - return all books
 app.get('/books', (req, res) => {
   res.json(books);
 });
 
-// POST /books - add a new book
 app.post('/books', (req, res) => {
   const { title, author } = req.body;
 
@@ -37,7 +33,6 @@ app.post('/books', (req, res) => {
   res.status(201).json(newBook);
 });
 
-// Start server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
