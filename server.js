@@ -13,14 +13,13 @@ const BookStore = [
   { id: 5, name: "The Immortals of Meluha", author: "Amish Tripathi" },
 ];
 
-
+// ✅ Fixed variable name here
 app.get('/books', (req, res) => {
-  res.json(books);
+  res.json(BookStore);
 });
 
 app.get('/', (req, res) => {
   res.send('Welcome to the Book Library.');
 });
-
 
 module.exports = app;
