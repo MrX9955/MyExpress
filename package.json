@@ -1,4 +1,8 @@
 {
   "title": "The Alchemist",
-  "author": "Paulo Coelho"
+  "author": "Paulo Coelho",
+  "dependencies": {
+    "express": "^5.1.0",
+    "node.js": "^0.0.1-security"
+  }
 }
