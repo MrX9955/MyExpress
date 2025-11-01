@@ -2,16 +2,16 @@ const express = require("express");
 const app = express();
 
 const BookStore = [
-  { id: 1, name: "The White Tiger", author: "Aravind Adiga" },
-  { id: 2, name: "The God of Small Things", author: "Arundhati Roy" },
-  { id: 3, name: "Train to Pakistan", author: "Khushwant Singh" },
-  { id: 4, name: "The Palace of Illusions", author: "Chitra Banerjee Divakaruni" },
-  { id: 5, name: "The Immortals of Meluha", author: "Amish Tripathi" },
+  { id: 1, name: "Main Jise Sochta Hun", author: "Dilbagh" },
+  { id: 2, name: "Wo Jo Khawab The", author: "Dilbagh Usafir" },
+  { id: 3, name: "Gaun Chhuta", author: "Vikash Sah" },
+  { id: 4, name: "How Do I Explain Her", author: "Mr X" },
+  { id: 5, name: "How Lonely I Am", author: "Dilbagh Musafir" },
 ];
 
 app.use(express.json());
 
-app.get("/book", (req, res) => {
+app.get("/books", (req, res) => {
   const { author } = req.query;
   if (author) {
     const books = BookStore.filter((b) => b.author === author);
@@ -21,13 +21,13 @@ app.get("/book", (req, res) => {
   }
 });
 
-app.get("/book/:id", (req, res) => {
+app.get("/books/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const book = BookStore.find((b) => b.id === id);
   res.send(book);
 });
 
-app.post("/book", (req, res) => {
+app.post("/books", (req, res) => {
   const exists = BookStore.find((b) => b.id === req.body.id);
   if (exists) {
     res.send("Already Available");
