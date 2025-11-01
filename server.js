@@ -1,37 +1,44 @@
-// --- server.js ---
 const express = require("express");
-const mongoose = require("mongoose");
+const app = express();
 
+const BookStore = [
+  { id: 1, name: "The White Tiger", author: "Aravind Adiga" },
+  { id: 2, name: "The God of Small Things", author: "Arundhati Roy" },
+  { id: 3, name: "Train to Pakistan", author: "Khushwant Singh" },
+  { id: 4, name: "The Palace of Illusions", author: "Chitra Banerjee Divakaruni" },
+  { id: 5, name: "The Immortals of Meluha", author: "Amish Tripathi" },
+];
 
+app.use(express.json());
 
-// 🧩 MongoDB Connection
-let isConnected = false;
-async function ConnectedToDB() {
-      mongoose.connect("mongodb+srv://mrx9955:Bihar9955@vikashdb.3e0vafd.mongodb.net/BloodDB", {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    })
-    .then(() => {
-      isConnected = true
-      console.log("MongoDB Connected")
-    })
-    .catch(err => console.error("MongoDB Connection Error:", err));
-}
-
-// middleware 
-app.use((req,res,next)=>{
-  if(!isConnected){
-    ConnectedToDB();
+app.get("/book", (req, res) => {
+  const { author } = req.query;
+  if (author) {
+    const books = BookStore.filter((b) => b.author === author);
+    res.send(books);
+  } else {
+    res.send(BookStore);
   }
-  next();
-})
-
-// 🏠 Default Route
-app.get("/", (req, res) => {
-  res.send("✅ BloodBank Backend is Running on Vercel!");
 });
 
-// app.listen(3000,()=>{
-//     console.log("listen at 3000");
-// })
+app.get("/book/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const book = BookStore.find((b) => b.id === id);
+  res.send(book);
+});
+
+app.post("/book", (req, res) => {
+  const exists = BookStore.find((b) => b.id === req.body.id);
+  if (exists) {
+    res.send("Already Available");
+  } else {
+    BookStore.push(req.body);
+    res.send("Data saved Successfully");
+  }
+});
+
+app.use("/",(req,res)=>{
+    res.send("Welcome to Book Store");
+})
+
 module.exports = app;
