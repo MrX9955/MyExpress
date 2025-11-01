@@ -1,22 +1,23 @@
-// --- server.js ---
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const dotenv = require("dotenv");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-
-
+const express = require('express');
 const app = express();
+
 app.use(express.json());
 
+const BookStore = [
+{ id: 1, name: "The White Tiger", author: "Aravind Adiga" },
+{ id: 2, name: "The God of Small Things", author: "Arundhati Roy" },
+{ id: 3, name: "Train to Pakistan", author: "Khushwant Singh" },
+{ id: 4, name: "The Palace of Illusions", author: "Chitra Banerjee Divakaruni" },
+{ id: 5, name: "The Immortals of Meluha", author: "Amish Tripathi" },
+];
 
-// 🏠 Default Route
-app.get("/", (req, res) => {
-  res.send("✅ BloodBank Backend is Running on Vercel!");
+// ✅ Fixed variable name here
+app.get('/books', (req, res) => {
+res.json(BookStore);
 });
 
-// app.listen(3000,()=>{
-//     console.log("listen at 3000");
-// })
+app.get('/', (req, res) => {
+res.send('Welcome to the Book Library.');
+});
+
 module.exports = app;
